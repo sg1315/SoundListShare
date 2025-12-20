@@ -5,7 +5,18 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 
 export default [
-  { ignores: ['node_modules', 'dist', 'build', '.eslintrc.js', 'vite.config.ts', 'webpack.config.js', 'tsconfig.json', 'tsconfig.node.json'] },
+  {
+    ignores: [
+      'node_modules',
+      'dist',
+      'build',
+      '.eslintrc.js',
+      'vite.config.ts',
+      'webpack.config.js',
+      'tsconfig.json',
+      'tsconfig.node.json',
+    ],
+  },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
