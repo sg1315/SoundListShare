@@ -1,4 +1,4 @@
-# KinderBridge
+# SoundListShare
 
 React와 Spring Boot를 활용한 음악 플레이리스트 웹앱입니다.
 
