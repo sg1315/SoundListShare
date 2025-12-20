@@ -1,6 +1,6 @@
 # KinderBridge
 
-React와 Spring Boot를 활용한 유치원 ERP 시스템입니다.
+React와 Spring Boot를 활용한 음악 플레이리스트 웹앱입니다.
 
 ## 프로젝트 개요
 
