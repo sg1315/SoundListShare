@@ -1,26 +1,23 @@
 package com.sls.back.entity.common;
 
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.Table;
-//import lombok.AccessLevel;
-//import lombok.AllArgsConstructor;
-//import lombok.Builder;
-//import lombok.Getter;
-//import lombok.NoArgsConstructor;
-//import lombok.Setter;
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "USERS")
-public class User {//사용자
+public class Users {
+    //사용자
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,19 +41,19 @@ public class User {//사용자
     private LocalDateTime createDate;
     //사용자 생성일
 
-    //---------------------------------------------------------------------------------------------
+    // ================= 강제 생성자 =================
+    public Users(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+    // 생성자
 
+    // ================= 연관관계 =================
     @PrePersist
     private void onCreate() {
         this.createDate = LocalDateTime.now();
     }
     // 생성일 자동 생성
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-    // 생성자
 
 
 }

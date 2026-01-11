@@ -1,7 +1,18 @@
 package com.sls.back.entity.common;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -9,6 +20,7 @@ import lombok.*;
 @Getter
 @Table(name = "PLAY_HISTORY")
 public class PlayHistory {
+    // 재생 기록
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +41,13 @@ public class PlayHistory {
     // Music과 연결(스포티파이 api_artist 고유키와 스포티파이 api_track 고유키를 가져올 수 있음)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
+    @JoinColumn(name = "USERS_ID", nullable = false)
+    private Users users;
     // 재생한 사용자
 
     // ================= 강제 생성자 =================
-    public PlayHistory(User user, Music music) {
-        this.user = user;
+    public PlayHistory(Users users, Music music) {
+        this.users = users;
         this.music = music;
         this.playCount = 0L;
     }
