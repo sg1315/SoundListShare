@@ -1,10 +1,18 @@
 package com.sls.back.entity.common;
 
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -13,16 +21,18 @@ import java.util.List;
 @Getter
 @Table(name = "ARTIST")
 public class Artist {
+    // 가수
 
     @Id
-    @Column(name = "spotify_artist_id")
+    @Column(name = "SPOTIFY_ARTIST_ID")
     private String spotifyArtistId;
     // 스포티파이 api_artist 고유키
 
-    @Column(name = "artist_name")
+    @Column(name = "ARTIST_NAME")
     private String artistName;
     // 가수명
 
+    // ================= 연관관계 =================
     @OneToMany(
             mappedBy = "artist",
             cascade = CascadeType.ALL,
@@ -30,12 +40,13 @@ public class Artist {
     )
     private List<MusicArtist> musicArtists = new ArrayList<>();
 
+    // ================= 강제 생성자 =================
     public Artist(String spotifyArtistId, String artistName) {
         this.spotifyArtistId = spotifyArtistId;
         this.artistName = artistName;
     }
 
-    /* 연관관계 편의 메서드 */
+    // ================= 비즈니스 메서드 =================
     public void addMusicArtist(MusicArtist musicArtist) {
         musicArtists.add(musicArtist);
         musicArtist.setArtist(this);
