@@ -1,6 +1,12 @@
+import {
+  UserArea
+} from './Header.styles';
+
 const HeaderUser = () => {
   return (
-    <div>HeaderUser</div>
+    <UserArea>
+      <div className="avatar" />
+    </UserArea>
   )
 }
 
