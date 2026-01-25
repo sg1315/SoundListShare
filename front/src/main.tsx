@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 // import './index.css'
-import App from './App.tsx'
+import App from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './components/layout/Layout.tsx'
-import MainPage from './pages/MainPage.tsx'
+import Layout from './components/layout/Layout'
+import MainPage from './pages/MainPage'
 
 // import '@/styles/reset.css';
 // import '@/styles/global.css';
