@@ -37,11 +37,11 @@ public class MusicArtist {
 
     // ================= 연관관계 =================
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SPOTIFY_ARTIST_ID", nullable = false)
+    @JoinColumn(name = "ARITIST_ID", nullable = false)
     private Artist artist;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SPOTIFY_MUSIC_ID", nullable = false)
+    @JoinColumn(name = "MUSIC_ID", nullable = false)
     private Music music;
 
     // ================= 강제 생성자 =================

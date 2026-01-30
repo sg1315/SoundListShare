@@ -28,7 +28,6 @@ public class PlayList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PLAYLIST_ID")
     private Long id;
     // 플레이리스트 고유번호 (PK)
 

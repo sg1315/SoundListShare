@@ -24,8 +24,8 @@ public class Music {
     // 음악
 
     @Id
-    @Column(name = "SPOTIFY_MUSIC_ID")
-    private String spotifyMusicId;
+    @Column(name = "ID")
+    private Long Id;
     // 스포티파이 api_track 고유키
 
     @Column(name = "TITLE", nullable = false)

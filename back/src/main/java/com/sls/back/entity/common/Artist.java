@@ -24,8 +24,8 @@ public class Artist {
     // 가수
 
     @Id
-    @Column(name = "SPOTIFY_ARTIST_ID")
-    private String spotifyArtistId;
+    @Column(name = "ID")
+    private Long id;
     // 스포티파이 api_artist 고유키
 
     @Column(name = "ARTIST_NAME")
@@ -41,8 +41,8 @@ public class Artist {
     private List<MusicArtist> musicArtists = new ArrayList<>();
 
     // ================= 강제 생성자 =================
-    public Artist(String spotifyArtistId, String artistName) {
-        this.spotifyArtistId = spotifyArtistId;
+    public Artist(long apiId, String artistName) {
+        this.id = apiId;
         this.artistName = artistName;
     }
 

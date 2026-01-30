@@ -35,7 +35,10 @@ public class SecurityConfig {
                                 "/api/user/login",
 
                                 // 웹 소켓
-                                "/connect/**"
+                                "/connect/**",
+
+                                // 웹 테스트
+                                "/api/**"
                         ).permitAll() //인증 없이 허용
                         .anyRequest().authenticated() //그 외는 인증 필요
                 )

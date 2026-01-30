@@ -34,7 +34,7 @@ public class ArtistHistory {
 
     // ================= 연관관계 =================
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SPOTIFY_ARTIST_ID", nullable = false)
+    @JoinColumn(name = "ARTIST_ID", nullable = false)
     private Artist artist;
     // Artist 테이블과 연결(스포티파이 api_artist 고유키와 스포티파이 api_track 고유키를 가져올 수 있음)
 

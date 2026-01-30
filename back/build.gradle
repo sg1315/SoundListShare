@@ -34,6 +34,9 @@ dependencies {
 	// Spring Security: 인증 및 권한 부여 기능을 제공하는 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	// WebClient 사용을 위한 필수 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 	//WebSocket 기능을 위한 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
