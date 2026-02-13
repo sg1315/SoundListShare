@@ -5,6 +5,7 @@ import App from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import MainPage from './pages/MainPage'
+import SearchPage from './pages/SearchPage'
 
 // import '@/styles/reset.css';
 // import '@/styles/global.css';
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       // 여기에 로그인 후 페이지 계속 추가
+      {
+        path: '/search',
+        element: <SearchPage />,
+      },
     ],
   },
 ]);
