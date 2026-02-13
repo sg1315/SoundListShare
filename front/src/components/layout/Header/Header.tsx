@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   HeaderWrapper,
   Inner,
@@ -11,10 +12,16 @@ import HeaderUser from './HeaderUser';
 const Header = () => {
   // 🔹 UI용 임시 상태
   const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
 
   const search = () => {
     // 아직 로직 없음
-    console.log('search clicked');
+    // console.log('search clicked');
+    // e.preventDefault();
+
+    if (!keyword.trim()) return;
+
+    navigate(`/search?keyword=${encodeURIComponent(keyword)}`);
   };
 
   return (
