@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { Content, LayoutWrapper, Main, MainInner } from './Layout.styles';
+import PlayerBarContainer from '../../features/player/PlayerBarContainer';
 
 const Layout = () => {
   return (
@@ -15,6 +16,7 @@ const Layout = () => {
           </MainInner>
         </Main>
       </Content>
+      <PlayerBarContainer />
     </LayoutWrapper>
   );
 };
