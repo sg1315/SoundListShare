@@ -1,88 +1,61 @@
 package com.sls.back.api.music.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.sls.back.api.music.repository.MusicRepository;
 import com.sls.back.entity.common.Music;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
+import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
 @Service
 @RequiredArgsConstructor
 public class MusicServiceImpl implements MusicService{
 
-    private final WebClient soundCloudWebClient;
-    private final MusicRepository musicRepository;
+    private final SpotifyApi spotifyApi;
 
-    @Value("${soundcloud.api.client-id}")
-    private String clientId;
 
-    @Value("${soundcloud.api.client-secret}")
-    private String clientSecret;
-
-    @Override
-    public List<Music> searchMusic(String keyword) {
-        // 1. Access Token 발급
-        String accessToken = soundCloudWebClient.post()
-                .uri("https://api.soundcloud.com/oauth2/token")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData("client_id", clientId)
-                        .with("client_secret", clientSecret)
-                        .with("grant_type", "client_credentials"))
-                .retrieve()
-                .bodyToMono(JsonNode.class)
-                .map(node -> node.get("access_token").asText())
-                .block();
-        System.out.println(">>> 발급된 토큰: " + accessToken);
-
-        // 2. 토큰을 헤더에 담아 검색 요청
-        return soundCloudWebClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .scheme("https")
-                        .host("api.soundcloud.com")
-                        .path("/tracks")
-                        .queryParam("q", keyword)
-                        .build())
-                .header("Authorization", "Bearer " + accessToken)
-                .retrieve()
-                .bodyToFlux(Music.class)
-                .collectList()
-                .block();
+    public String getAccessToken() {
+        try {
+            ClientCredentialsRequest request = spotifyApi.clientCredentials().build();
+            ClientCredentials credentials = request.execute();
+            return credentials.getAccessToken();
+        } catch (Exception e) {
+            throw new RuntimeException("토큰 발급 실패: " + e.getMessage());
+        }
     }
 
+    @Override
+    public Music getMusic(String trackId) {
+        try {
+            String token = getAccessToken();
+            spotifyApi.setAccessToken(token);
+
+            //예시곡 Attention-찰리푸스
+            //5cF0dROlMOK5uNZtivgu50?si=9d2585d36c7a405c
+
+            //예시곡 Attention-뉴진스
+            //2pIUpMhHL6L9Z5lnKxJJr9?si=9e14cf65378a4c4c
+
+            GetTrackRequest getTrackRequest = spotifyApi.getTrack(trackId).build();
+            Track track = getTrackRequest.execute();
 
 
-//    public List<Music> searchMusic(String keyword) {
-//        //입력받은 키워드(제목)를 통해 soundCloud에서 그 키워드와 일치하는 음악 찾기
-//        List<MusicDto.SaveMusic> dtos = soundCloudWebClient.get()
-//                .uri(uriBuilder -> uriBuilder
-//                        .path("/tracks")
-//                        .queryParam("q", keyword)
-//                        .queryParam("client_id", clientId)
-//                        .build())
-//                .retrieve()
-//                .bodyToFlux(MusicDto.SaveMusic.class)
-//                .collectList()
-//                .block();
-//
-//        if (dtos != null && !dtos.isEmpty()) {
-//            System.out.println("\n>>> 사운드클라우드 API 수신 데이터 확인");
-//            dtos.forEach(dto ->
-//                    System.out.println("ID: " + dto.getSound_cloud_music_id() +
-//                            " | 제목: " + dto.getTitle() +
-//                            " | 길이: " + dto.getDuration() + "ms")
-//            );
-//            System.out.println(">>> 총 " + dtos.size() + "건 수신 완료\n");
-//        } else {
-//            System.out.println(">>> 수신된 데이터가 없습니다.");
-//        }
-//
-//        if (dtos == null) return Collections.emptyList();
-//
-//        return null;
-//    }
+            // 3. 데이터 콘솔 출력 (확인용)
+            System.out.println("=== Spotify Metadata 확인 ===");
+            System.out.println("곡 제목: " + track.getName());
+            System.out.println("아티스트: " + track.getArtists()[0].getName());
+            System.out.println("앨범명: " + track.getAlbum().getName());
+            System.out.println("앨범 발매일: " + track.getAlbum().getReleaseDate());
+            System.out.println("앨범 커버 URL: " + track.getAlbum().getImages()[0].getUrl());
+            System.out.println("재생 시간(ms): " + track.getDurationMs());
+            System.out.println("인기도: " + track.getPopularity());
+            System.out.println("============================");
+
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("메타데이터 조회 실패: " + e.getMessage());
+        }
+    }
 }

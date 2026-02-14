@@ -64,6 +64,9 @@ dependencies {
 
 	// Swagger (API 문서화)
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+	//spotify API
+	implementation 'se.michaelthelin.spotify:spotify-web-api-java:8.0.0'
 }
 
 tasks.named('test') {
