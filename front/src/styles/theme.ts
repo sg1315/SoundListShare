@@ -1,4 +1,6 @@
-const theme = {
+import type { Theme } from './theme.type';
+
+const theme: Theme = {
   colors: {
     yellow: '#FFCE65',
     orange: '#F36B4D',
@@ -8,9 +10,8 @@ const theme = {
     lightblue: '#8FD7EB',
     purple: '#8772D3',
     lightyellow: '#FFF2D8',
-    ligthorange: '#F8A896',
     white: '#ffffff',
-    lightwhite: `rgba(255,255,255, 55%)`,
+    lightwhite: 'rgba(255,255,255, 55%)',
     black: '#000000',
     gray: {
       100: '#f3f4f6',
@@ -24,6 +25,7 @@ const theme = {
       900: '#111827',
     },
   },
+
   fontSizes: {
     xs: '12px',
     sm: '14px',
@@ -35,6 +37,7 @@ const theme = {
     '4xl': '36px',
     '5xl': '48px',
   },
+
   fontWeights: {
     thin: 100,
     light: 300,
@@ -45,6 +48,7 @@ const theme = {
     extrabold: 800,
     black: 900,
   },
+
   breakpoints: {
     xs: '320px',
     sm: '576px',
@@ -53,6 +57,7 @@ const theme = {
     xl: '1200px',
     '2xl': '1400px',
   },
+
   spacing: {
     0: '0px',
     1: '4px',
@@ -73,6 +78,7 @@ const theme = {
     56: '224px',
     64: '256px',
   },
+
   borderRadius: {
     none: '0px',
     sm: '2px',
@@ -84,6 +90,7 @@ const theme = {
     '3xl': '24px',
     full: '9999px',
   },
+
   shadows: {
     sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
     base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
@@ -94,6 +101,7 @@ const theme = {
     inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
     none: 'none',
   },
+
   zIndices: {
     hide: -1,
     auto: 'auto',
